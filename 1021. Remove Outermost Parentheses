@@ -1,0 +1,57 @@
+A valid parentheses string is either empty "", "(" + A + ")", or A + B, where A and B are valid parentheses strings, and + represents string concatenation.
+
+For example, "", "()", "(())()", and "(()(()))" are all valid parentheses strings.
+A valid parentheses string s is primitive if it is nonempty, and there does not exist a way to split it into s = A + B, with A and B nonempty valid parentheses strings.
+
+Given a valid parentheses string s, consider its primitive decomposition: s = P1 + P2 + ... + Pk, where Pi are primitive valid parentheses strings.
+
+Return s after removing the outermost parentheses of every primitive string in the primitive decomposition of s.
+Example 1:
+Input: s = "(()())(())"
+Output: "()()()"
+Explanation: 
+The input string is "(()())(())", with primitive decomposition "(()())" + "(())".
+After removing outer parentheses of each part, this is "()()" + "()" = "()()()".
+Example 2:
+Input: s = "(()())(())(()(()))"
+Output: "()()()()(())"
+Explanation: 
+The input string is "(()())(())(()(()))", with primitive decomposition "(()())" + "(())" + "(()(()))".
+After removing outer parentheses of each part, this is "()()" + "()" + "()(())" = "()()()()(())".
+Example 3:
+Input: s = "()()"
+Output: ""
+Explanation: 
+The input string is "()()", with primitive decomposition "()" + "()".
+After removing outer parentheses of each part, this is "" + "" = "".
+
+Solution:
+      #keep adding the given parenthseis to a string 
+      #whenever we find the parenthesis is valid(i,e.stack is empty) return string[1:-1] by excluding the first and the last character(#outermost parenthesis)
+      
+class Solution:
+    def removeOuterParentheses(self, s: str) -> str:
+        k=''
+        stack=[]
+        ans=''
+        #print(s)
+        #print(len(s))
+        for i in range(len(s)):
+           # print(i)
+            k+=s[i]
+            # print(k)
+            if s[i]=='(':
+                stack.append(s[i])
+                #print(stack)
+            elif(len(stack)>0 and s[i]==')' and stack[-1]=='('):
+                stack.pop()
+               # print(stack)
+            if (len(stack)==0):
+                ans+=k[1:-1]
+                #print(ans)
+                k=''
+        return ans
+                
+      
+            
+        
